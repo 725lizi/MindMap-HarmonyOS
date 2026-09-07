@@ -2,17 +2,18 @@ import { MindTree, MindNode } from '@yourname/mindmap';
 
 /** Demo 示例数据：集中构造，四个示例页共用 */
 export class SampleData {
-  /** 一棵三层示例树 */
+  /**
+   * G4 轮廓压缩形态示例树：r→[A,B]；A→[a1,a2]；a1→a11；B 为叶子。
+   * 紧凑 tidier 布局下 B 会收在 A 的下方（B 的 y=114，旧全局光标算法为 144；
+   * 内容包围盒高 182，旧算法为 212），四个示例页共用这棵不对称树以体现紧凑效果。
+   */
   static basicTree(): MindTree {
-    const tree: MindTree = new MindTree('鸿蒙学习路线', 'root');
-    tree.addChildTo('root', new MindNode('ui', 'ArkUI 界面'));
-    tree.addChildTo('root', new MindNode('model', '数据模型'));
-    tree.addChildTo('root', new MindNode('test', '单元测试'));
-    tree.addChildTo('ui', new MindNode('ui-1', '声明式 UI'));
-    tree.addChildTo('ui', new MindNode('ui-2', '组件化'));
-    tree.addChildTo('model', new MindNode('model-1', 'MindNode'));
-    tree.addChildTo('model', new MindNode('model-2', 'MindTree'));
-    tree.addChildTo('test', new MindNode('test-1', 'Hypium'));
+    const tree: MindTree = new MindTree('紧凑布局示例', 'root');
+    tree.addChildTo('root', new MindNode('A', '复杂子树 A'));
+    tree.addChildTo('root', new MindNode('B', '叶子 B（收在 A 下方）'));
+    tree.addChildTo('A', new MindNode('a1', 'a1 深层分支'));
+    tree.addChildTo('A', new MindNode('a2', 'a2 子节点'));
+    tree.addChildTo('a1', new MindNode('a11', 'a11 更深层'));
     return tree;
   }
 

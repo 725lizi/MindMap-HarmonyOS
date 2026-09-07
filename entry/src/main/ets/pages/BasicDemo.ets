@@ -31,7 +31,7 @@ struct BasicDemo {
       .width('100%')
       .padding({ top: 12, bottom: 12 })
 
-      Text('LayoutEngine 自动计算坐标，子树不重叠、同层对齐；Canvas 绘制贝塞尔连线。')
+      Text('后序轮廓紧凑布局（tidier）：坐标自动计算、子树不重叠。本页为 G4 不对称树——叶子 B 只与 A 在首层相撞，紧凑收在 A 下方（B 的 y=114，旧全局光标算法为 144；包围盒高 182，旧算法 212）。Canvas 绘制贝塞尔连线。')
         .fontSize(12)
         .fontColor('#6B7280')
         .width('100%')
