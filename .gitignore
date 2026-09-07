@@ -1,5 +1,6 @@
 /node_modules
 /oh_modules
+**/oh_modules/
 /local.properties
 /.idea
 **/build
@@ -17,6 +18,8 @@
 *.har
 *.hsp
 *.app
+# hvigor sync 自动生成到各模块根目录，不入库
+**/BuildProfile.ets
 
 # 本地临时/脚手架工作目录
 /.scaffold_tmp

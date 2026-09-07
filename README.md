@@ -86,6 +86,10 @@ MindMap-HarmonyOS/
 
 详见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) 与 [docs/API.md](docs/API.md)。
 
+## AI 协作开发策略
+
+本项目采用双模型互补分工：**DeepSeek 负责树算法、结构化 JSON、工具函数、文本转脑图数据；豆包 Seed 负责复杂 ArkTS 自定义 UI 渲染与依赖现有接口的业务接线**。任务路由表、交接流水线与质量门见 [docs/AI_COLLAB_STRATEGY.md](docs/AI_COLLAB_STRATEGY.md)。
+
 ## 构建与测试（重要）
 
 HarmonyOS API 24 SDK / hvigor 需登录华为开发者中心下载，**GitHub Actions 云端无法获取**，因此：
