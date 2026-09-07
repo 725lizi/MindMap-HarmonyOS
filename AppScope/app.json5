@@ -1,0 +1,12 @@
+{
+  "app": {
+    // TODO(发布前): 改成你自己的全局唯一包名，例如 com.yourname.mindmapdemo
+    "bundleName": "com.yourname.mindmapdemo",
+    "vendor": "yourname",
+    "versionCode": 1000000,
+    "versionName": "1.0.0",
+    "buildVersion": "1",
+    "icon": "$media:layered_image",
+    "label": "$string:app_name"
+  }
+}

@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  draft-release:
+    name: Create Draft Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 发版前再做一次仓库规范校验
+      - name: Verify repository standards
+        run: |
+          set -e
+          test -f LICENSE
+          test -f README.md
+          test -f oh-package.json5
+          test -f build-profile.json5
+          test -d library/src/test
+          test -d docs
+          echo "Repository standards OK."
+
+      # 云端拿不到 HarmonyOS SDK，只创建「草稿 Release」：
+      # HAR 包通过本地 `ohpm publish` 发布到 ohpm 中心仓；Demo HAP 在本地 DevEco 构建后手动拖入草稿。
+      - name: Create draft GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          name: MindMap-HarmonyOS ${{ github.ref_name }}
+          generate_release_notes: true
+          body: |
+            ## 发布清单（均需在本地完成，云端无 HarmonyOS SDK）
+
+            ### 1. HAR 组件库发布到 ohpm 中心仓
+            1. 确认 `library/oh-package.json5` 的 version 与本 tag 一致
+            2. 在 `library/` 目录执行 `ohpm publish`（需已登录并完成实名认证）
+            3. 验证 `ohpm install @yourname/mindmap` 可正常安装
+
+            ### 2. Demo HAP（可选附件）
+            1. DevEco Studio：**Build > Build Hap(s)/APP(s) > Build Hap(s)**（release）
+            2. 产物位于 `entry/build/default/outputs/default/` 下的 `.hap`
+            3. 拖到本页底部附件区后，点击 **Publish release**
+
+            > 以下更新记录由 GitHub 自动生成：

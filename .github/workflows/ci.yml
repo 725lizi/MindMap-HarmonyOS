@@ -1,0 +1,45 @@
+name: Repository-Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  repo-check:
+    name: Repository Standards Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 说明：HarmonyOS API 24 SDK / hvigor 需登录华为开发者中心下载，
+      # GitHub Actions 云端无法获取，因此云端 CI 不做 HAR/HAP 构建，也不跑 hypium 单测。
+      # 构建与单元测试统一在本地 DevEco Studio 执行（README 已写明），云端只做仓库规范门禁，保证徽章稳定绿。
+      - name: Verify critical repository files
+        run: |
+          set -e
+          test -f LICENSE
+          test -f README.md
+          test -f oh-package.json5
+          test -f build-profile.json5
+          test -f code-linter.json5
+          # HAR 组件库六层分层目录必须齐全
+          test -d library/src/main/ets/model
+          test -d library/src/main/ets/layout
+          test -d library/src/main/ets/render
+          test -d library/src/main/ets/gesture
+          test -d library/src/main/ets/edit
+          test -d library/src/main/ets/export
+          # 组件库必须带本地单元测试目录
+          test -d library/src/test
+          # Demo 应用与文档必须存在
+          test -d entry/src/main/ets/pages
+          test -d docs
+
+      - name: Repository check passed
+        run: |
+          echo "OK - repository standards check passed."
+          echo "Note: HarmonyOS HAR/HAP build & hypium unit tests require local DevEco Studio."

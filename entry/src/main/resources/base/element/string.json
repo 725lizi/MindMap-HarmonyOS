@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "MindMap-HarmonyOS 组件库演示应用"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "思维导图组件演示"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "MindMap Demo"
+    }
+  ]
+}

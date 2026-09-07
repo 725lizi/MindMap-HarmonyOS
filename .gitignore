@@ -1,0 +1,29 @@
+/node_modules
+/oh_modules
+/local.properties
+/.idea
+**/build
+/.hvigor
+.cxx
+/.clangd
+/.clang-format
+/.clang-tidy
+**/.test
+/.appanalyzer
+/.preview
+
+# 构建产物
+*.hap
+*.har
+*.hsp
+*.app
+
+# 本地临时/脚手架工作目录
+/.scaffold_tmp
+
+# 操作系统与编辑器
+.DS_Store
+Thumbs.db
+
+# Word 临时锁文件
+~$*

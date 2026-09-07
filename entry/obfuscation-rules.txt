@@ -1,0 +1,4 @@
+# Define obfuscation rules here.
+# ArkTS 代码混淆规则（release 构建时启用，当前骨架默认关闭混淆）。
+-keep-property-name
+-keep-file-name
