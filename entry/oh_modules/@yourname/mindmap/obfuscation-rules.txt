@@ -1,0 +1,6 @@
+# Define obfuscation rules here.
+# HAR 组件库发布时的混淆规则：公开 API 的类名/方法名需要保留，避免使用方 import 失效。
+-keep-property-name
+-keep-file-name
+# 对外导出的公共 API（在 Index.ets 中统一导出）禁止被重命名混淆
+-keep-name
