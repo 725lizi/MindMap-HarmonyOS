@@ -1,15 +1,13 @@
 {
   "module": {
     "name": "library",
-    "type": "shared",
+    "type": "har",
     "description": "$string:module_desc",
     "deviceTypes": [
       "phone",
       "tablet",
       "2in1"
     ],
-    "deliveryWithInstall": true,
-    "pages": "$profile:main_pages",
-    "abilities": []
+    "pages": "$profile:main_pages"
   }
 }
