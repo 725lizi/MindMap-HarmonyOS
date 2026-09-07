@@ -178,7 +178,7 @@ export struct MindMapView {
             .fontSize(this.isRoot(item.id) ? this.theme.rootFontSize : this.theme.fontSize)
             .fontColor(this.fontColorOf(item.id))
             .maxLines(2)
-            .textOverflow(TextOverflow.Ellipsis)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
             .textAlign(TextAlign.Center)
             .width(item.width - 16)
         }

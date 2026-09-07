@@ -34,7 +34,12 @@ struct EditDemo {
           .fontSize(15)
           .fontColor('#2563EB')
           .onClick(() => {
-            router.back();
+            // router.back 已 deprecated（本轮保留 router 范式），且可能抛错，需捕获
+            try {
+              router.back();
+            } catch (e) {
+              console.error('router.back failed', e);
+            }
           })
         Text('节点编辑')
           .fontSize(18)

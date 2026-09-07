@@ -23,6 +23,9 @@ export class ImageExporter {
   /**
    * 按组件 id 截取 MindMapView 为 PixelMap。
    * 被截取的组件需要配置 .id('mindmap_canvas')。
+   * TODO(M4): 全局 componentSnapshot.get 自 API18 弃用
+   * （useinstead ohos.arkui.UIContext.ComponentSnapshot#get），M4 落地相册导出时一并迁移，
+   * 迁移前保持本方法对外签名 static capture(componentId: string): Promise<image.PixelMap> 不变。
    */
   static capture(componentId: string): Promise<image.PixelMap> {
     return new Promise<image.PixelMap>((resolve, reject) => {

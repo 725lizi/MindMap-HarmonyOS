@@ -51,7 +51,13 @@ struct Index {
   ];
 
   private gotoPage(url: string): void {
-    router.pushUrl({ url: url });
+    // router.pushUrl 在路由栈异常等场景会抛错，捕获后记录而不是让页面崩溃
+    // 技术债登记：router 全家桶已标记 deprecated，本轮不迁移 Navigation/NavPathStack
+    try {
+      router.pushUrl({ url: url });
+    } catch (e) {
+      console.error('router.pushUrl failed: ' + url, e);
+    }
   }
 
   build() {
