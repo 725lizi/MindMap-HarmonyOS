@@ -22,6 +22,8 @@ export struct MindMapView {
   @Prop root: MindNode = new MindNode('root', '中心主题');
   /** 编辑后自增，触发重新布局与重绘 */
   @Prop @Watch('onRefreshTickChanged') refreshTick: number = 0;
+  /** 当前选中节点 id（可选）；空串表示无选中，全部节点走默认描边，未传入的页面零影响 */
+  @Prop selectedId: string = '';
   /** 可选自定义布局参数 */
   layoutConfig: LayoutConfig | null = null;
   /** 主题，默认走 ThemeManager.defaultTheme() */
@@ -187,11 +189,15 @@ export struct MindMapView {
         .position({ x: item.x, y: item.y })
         .backgroundColor(this.fillColorOf(item.id))
         .borderRadius(this.theme.cornerRadius)
-        .border({ width: 1, color: '#CBD5E1' })
+        .border({
+          width: item.id === this.selectedId ? 2 : 1,
+          color: item.id === this.selectedId ? this.theme.selectedBorderColor : '#CBD5E1'
+        })
         .onClick(() => {
           this.onNodeSelect(item.id);
         })
-      }, (item: LayoutNode): string => item.id + '_' + this.refreshTick.toString())
+      }, (item: LayoutNode): string =>
+        item.id + '_' + this.refreshTick.toString() + '_' + (item.id === this.selectedId ? '1' : '0'))
     }
     .width('100%')
     .height('100%')
