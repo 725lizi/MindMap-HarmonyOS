@@ -239,6 +239,7 @@ export struct MindMapView {
     }
     .width('100%')
     .height('100%')
+    .alignContent(Alignment.TopStart)
     .backgroundColor(this.theme.backgroundColor)
     .clip(true)
     .onAreaChange((oldValue: Area, newValue: Area) => {
