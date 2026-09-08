@@ -11,6 +11,10 @@
     {
       "name": "EntryAbility_label",
       "value": "MindMap Demo"
+    },
+    {
+      "name": "perm_write_imagevideo_reason",
+      "value": "用于把思维导图导出为图片并保存到系统相册"
     }
   ]
 }

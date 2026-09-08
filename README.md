@@ -12,9 +12,10 @@
 - **自研紧凑树形布局算法**：内置后序轮廓（tidier）树形布局引擎，复杂度 O(n·深度)，兄弟子树按轮廓逐层避让、整树一次移位，不对称树也能紧凑不重叠，数据驱动、无需手摆坐标。
 - **流畅手势**：双指缩放、单指平移、双击回到整树适配视图，大图浏览顺滑；初始进入自动整树适配居中（fit-to-screen），视口状态机为纯逻辑、可单测。
 - **键盘流编辑（示例演示）**：EditDemo 支持回车加同级、Tab 加子级、输入框为空时 Delete 删除，连续录入不丢焦点；MindMapView 提供可选 `selectedId` 入参，选中节点以主题色（默认琥珀色）描边，不传则零影响。
+- **图片导出**：组件截图走 `UIContext.ComponentSnapshot` 新 API（无弃用调用），`ImageExporter.saveToGallery` 经 photoAccessHelper 一键保存 PNG 到系统相册，含运行时权限申请与成功/失败/拒绝授权三态处理；HAR 本身不声明任何权限。
 - **一行接入**：`ohpm install @yourname/mindmap`，三行代码渲染一张思维导图。
 - **可定制**：主题配色、连线样式（曲线/折线）、节点样式、字号全部可配置。
-- **工程质量**：65 个本地单元测试覆盖数据模型、布局算法（含独立手算黄金坐标与 1000 棵随机树不变量审计）、视口状态机、序列化、编辑控制与主题（随里程碑持续增加）。
+- **工程质量**：74 个本地单元测试覆盖数据模型、布局算法（含独立手算黄金坐标与随机树不变量审计）、视口状态机、整树适配纯函数、序列化、编辑控制与主题（随里程碑持续增加）。
 
 ## 快速上手
 
@@ -122,7 +123,7 @@ HarmonyOS API 24 SDK / hvigor 需登录华为开发者中心下载，**GitHub Ac
 - [ ] 补 Demo 运行截图到 `screenshots/` 并替换上方占位
 - [x] M2 算法侧：后序轮廓紧凑 tidier 布局已落地（黄金坐标 + 1000 随机树零违例）
 - [ ] M2 渲染侧：MindMapView 设备目视回归与 Demo 截图
-- [ ] M4：ImageExporter 保存相册（photoAccessHelper + 权限声明）
+- [x] M4：ImageExporter 保存相册（photoAccessHelper + 权限声明，截图迁移 UIContext.ComponentSnapshot 新 API）
 
 ## License
 

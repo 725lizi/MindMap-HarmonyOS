@@ -3,6 +3,7 @@ import { LayoutEngine } from '../layout/LayoutEngine';
 import { LayoutNode, Edge, LayoutResult, LayoutConfig } from '../layout/LayoutTypes';
 import { ViewportController } from '../gesture/ViewportController';
 import { MindMapTheme, ThemeManager } from '../theme/MindMapTheme';
+import { ImageExporter } from '../export/ImageExporter';
 
 /**
  * MindMapView —— 思维导图渲染组件（render 层）。
@@ -24,6 +25,8 @@ export struct MindMapView {
   @Prop @Watch('onRefreshTickChanged') refreshTick: number = 0;
   /** 当前选中节点 id（可选）；空串表示无选中，全部节点走默认描边，未传入的页面零影响 */
   @Prop selectedId: string = '';
+  /** 截图组件 id（可选）；非空时在生命周期内为 ImageExporter 绑定/解绑本组件 UIContext，未传入零影响 */
+  @Prop snapshotId: string = '';
   /** 可选自定义布局参数 */
   layoutConfig: LayoutConfig | null = null;
   /** 主题，默认走 ThemeManager.defaultTheme() */
@@ -56,7 +59,17 @@ export struct MindMapView {
   private hasUserInteracted: boolean = false;
 
   aboutToAppear(): void {
+    if (this.snapshotId !== '') {
+      // 绑定 UIContext，供 ImageExporter.capture 走 UIContext.ComponentSnapshot 新 API
+      ImageExporter.bindUIContext(this.snapshotId, this.getUIContext());
+    }
     this.relayout();
+  }
+
+  aboutToDisappear(): void {
+    if (this.snapshotId !== '') {
+      ImageExporter.unbindUIContext(this.snapshotId);
+    }
   }
 
   /** refreshTick 变化（编辑后）时重新布局 */

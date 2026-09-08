@@ -1,14 +1,18 @@
 import { router } from '@kit.ArkUI';
+import { abilityAccessCtrl, common, Permissions } from '@kit.AbilityKit';
 import {
   MindTree,
   MindMapView,
   JsonSerializer,
   MindMapSerializeError,
-  ImageExporter
+  ImageExporter,
+  ImageExportCode
 } from '@yourname/mindmap';
 import { SampleData } from '../common/SampleData';
 
-/** 示例四：JSON 序列化往返 + 组件截图（保存相册在 M4 通过 photoAccessHelper 落地） */
+const WRITE_PERMISSION: Permissions = 'ohos.permission.WRITE_IMAGEVIDEO';
+
+/** 示例四：JSON 序列化往返 + 组件截图 + 保存图片到系统相册 */
 @Entry
 @Component
 struct ExportDemo {
@@ -17,31 +21,73 @@ struct ExportDemo {
   @State private jsonText: string = '';
   @State private importText: string = SampleData.sampleJson();
   @State private message: string = '';
+  // 三态：ok 成功（绿）、fail 失败（红）、warn 拒绝授权（橙）
+  @State private messageKind: string = 'ok';
 
   private doExport(): void {
     this.jsonText = JsonSerializer.serializeTree(this.tree);
-    this.message = '已导出 JSON（可直接作为 DeepSeek 输出的标准树节点契约）';
+    this.showMessage('已导出 JSON（可直接作为 DeepSeek 输出的标准树节点契约）', 'ok');
   }
 
   private doImport(): void {
     try {
       this.tree = JsonSerializer.deserialize(this.importText);
       this.tick++;
-      this.message = '导入成功，已重新布局';
+      this.showMessage('导入成功，已重新布局', 'ok');
     } catch (e) {
       const err = e as MindMapSerializeError;
-      this.message = '导入失败：' + (err.code !== undefined ? err.code : '非法数据');
+      this.showMessage('导入失败：' + (err.code !== undefined ? err.code : '非法数据'), 'fail');
     }
+  }
+
+  private showMessage(text: string, kind: string): void {
+    this.message = text;
+    this.messageKind = kind;
   }
 
   private async doCapture(): Promise<void> {
     try {
       const pixelMap = await ImageExporter.capture('mindmap_canvas');
       const info = await pixelMap.getImageInfo();
-      this.message = '截图成功，尺寸：' + info.size.width.toString() + 'x' + info.size.height.toString() +
-        '（保存相册为 M4 任务）';
+      this.showMessage('截图成功，尺寸：' + info.size.width.toString() + 'x' + info.size.height.toString(), 'ok');
     } catch (e) {
-      this.message = '截图失败：' + JSON.stringify(e);
+      this.showMessage('截图失败：' + JSON.stringify(e), 'fail');
+    }
+  }
+
+  /** 保存前先查权限，未授予则走系统运行时授权弹窗 */
+  private async ensureWritePermission(): Promise<boolean> {
+    const context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    const atManager = abilityAccessCtrl.createAtManager();
+    const tokenId = context.applicationInfo.accessTokenId;
+    const granted: boolean =
+      atManager.checkAccessTokenSync(tokenId, WRITE_PERMISSION) === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED;
+    if (granted) {
+      return true;
+    }
+    const result = await atManager.requestPermissionsFromUser(context, [WRITE_PERMISSION]);
+    return result.authResults.length > 0 && result.authResults[0] === 0;
+  }
+
+  private async doSaveToGallery(): Promise<void> {
+    const granted = await this.ensureWritePermission();
+    if (!granted) {
+      this.showMessage('已拒绝相册权限：请在「设置-应用-权限」中开启后重试', 'warn');
+      return;
+    }
+    try {
+      const pixelMap = await ImageExporter.capture('mindmap_canvas');
+      const context = this.getUIContext().getHostContext() as common.Context;
+      const result = await ImageExporter.saveToGallery(pixelMap, context);
+      if (result.code === ImageExportCode.SUCCESS) {
+        this.showMessage(result.message, 'ok');
+      } else if (result.code === ImageExportCode.PERMISSION_DENIED) {
+        this.showMessage(result.message, 'warn');
+      } else {
+        this.showMessage(result.message, 'fail');
+      }
+    } catch (e) {
+      this.showMessage('保存失败：' + JSON.stringify(e), 'fail');
     }
   }
 
@@ -77,6 +123,9 @@ struct ExportDemo {
         Button('组件截图').fontSize(13).onClick(() => {
           this.doCapture();
         })
+        Button('保存到相册').fontSize(13).onClick(() => {
+          this.doSaveToGallery();
+        })
       }
       .width('100%')
       .margin({ bottom: 8 })
@@ -84,12 +133,17 @@ struct ExportDemo {
       if (this.message !== '') {
         Text(this.message)
           .fontSize(12)
-          .fontColor('#059669')
+          .fontColor(this.messageKind === 'ok' ? '#059669' :
+            (this.messageKind === 'warn' ? '#D97706' : '#DC2626'))
           .width('100%')
           .margin({ bottom: 8 })
       }
 
-      MindMapView({ root: this.tree.root, refreshTick: this.tick })
+      MindMapView({
+        root: this.tree.root,
+        refreshTick: this.tick,
+        snapshotId: 'mindmap_canvas'
+      })
         .id('mindmap_canvas')
         .height(260)
         .width('100%')

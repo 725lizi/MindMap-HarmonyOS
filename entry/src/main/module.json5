@@ -33,7 +33,18 @@
           }
         ]
       }
+    ],
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.WRITE_IMAGEVIDEO",
+        "reason": "$string:perm_write_imagevideo_reason",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "inuse"
+        }
+      }
     ]
-    // TODO(M4): 导出图片到相册时在此声明 ohos.permission.WRITE_IMAGEVIDEO
   }
 }

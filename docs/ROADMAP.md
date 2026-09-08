@@ -7,7 +7,7 @@
 | M1 工程+模型 | 工程骨架、MindNode/MindTree 模型 + 单测、分层目录、CI、LICENSE、README | 模型测试全绿、DevEco 可打开运行 Demo | ✅ 编译打包 0 error（8913d54），待 IDE 复跑 65 单测 |
 | M2 布局+渲染 | LayoutEngine 紧凑 tidier 升级 + MindMapView 画出多节点树 | 黄金坐标用例通过，Demo 可见正确树形，补 ohosTest | ✅ 算法 ad88338 + 渲染接入 f9efb18 已收口，待 IDE 复跑/装机目视 |
 | M3 手势+编辑 | 缩放/平移/双击、增删改节点、回车快速加同级/子级 | 交互可用，相关纯逻辑测试绿 | 🚧 键盘快录 MMH-M3-01：回车加同级、Tab 加子级、空输入 Delete 删除；选中节点琥珀色描边（selectedId 可选入参）；MMH-M3-02：初始进入自动整树适配居中，双击回到适配视图 |
-| M4 序列化+导出+主题 | JSON 往返、导出图片到相册、可配置主题 | 往返一致测试通过，真机导出成功 | 🚧 序列化/主题已落地，相册导出待做 |
+| M4 序列化+导出+主题 | JSON 往返、导出图片到相册、可配置主题 | 往返一致测试通过，真机导出成功 | ✅ 已完成：截图迁移 UIContext.ComponentSnapshot 新 API，photoAccessHelper 存 PNG 到系统相册（含运行时授权与三态提示），待真机终验 |
 | M5 质量+开源 | 补齐全部测试（≥52）、README 截图、Docs、CI 徽章 | 本地全绿、仓库规范 CI 绿 | ☐（当前 65 个本地单测） |
 | M6 上架+运营 | ohpm 发布、技术文、优选三方库申请、FocusTimer 接入 | ohpm 可安装、文章发布、FocusTimer 渲染 DeepSeek 脑图 | ☐ |
 
