@@ -190,48 +190,57 @@ export struct MindMapView {
   }
 
   build() {
+    // 外层视口层：与可视区等大，负责最终裁剪、尺寸上报与手势；不挂缩放平移
     Stack() {
-      // 连线层：尺寸覆盖整个布局内容区
-      Canvas(this.canvasContext)
-        .width(this.contentWidth)
-        .height(this.contentHeight)
-        .onReady(() => {
-          this.canvasReady = true;
-          this.drawEdges();
-        })
+      // 内层内容层：与布局包围盒等大，先在本层画完整棵树，再整体缩放平移。
+      // 必须与裁剪层分离——ArkUI 的 clip 在图层自身坐标系先裁剪、后变换，
+      // 若同层挂载，超出视口的深层节点会在缩小前就被裁掉。
+      Stack() {
+        // 连线层：尺寸覆盖整个布局内容区
+        Canvas(this.canvasContext)
+          .width(this.contentWidth)
+          .height(this.contentHeight)
+          .onReady(() => {
+            this.canvasReady = true;
+            this.drawEdges();
+          })
 
-      // 节点层：按布局坐标定位
-      ForEach(this.layoutNodes, (item: LayoutNode) => {
-        Stack() {
-          Text(this.textOf(item.id))
-            .fontSize(this.isRoot(item.id) ? this.theme.rootFontSize : this.theme.fontSize)
-            .fontColor(this.fontColorOf(item.id))
-            .maxLines(2)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .textAlign(TextAlign.Center)
-            .width(item.width - 16)
-        }
-        .width(item.width)
-        .height(item.height)
-        .position({ x: item.x, y: item.y })
-        .backgroundColor(this.fillColorOf(item.id))
-        .borderRadius(this.theme.cornerRadius)
-        .border({
-          width: item.id === this.selectedId ? 2 : 1,
-          color: item.id === this.selectedId ? this.theme.selectedBorderColor : '#CBD5E1'
-        })
-        .onClick(() => {
-          this.onNodeSelect(item.id);
-        })
-      }, (item: LayoutNode): string =>
-        item.id + '_' + this.refreshTick.toString() + '_' + (item.id === this.selectedId ? '1' : '0'))
+        // 节点层：按布局坐标定位
+        ForEach(this.layoutNodes, (item: LayoutNode) => {
+          Stack() {
+            Text(this.textOf(item.id))
+              .fontSize(this.isRoot(item.id) ? this.theme.rootFontSize : this.theme.fontSize)
+              .fontColor(this.fontColorOf(item.id))
+              .maxLines(2)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
+              .textAlign(TextAlign.Center)
+              .width(item.width - 16)
+          }
+          .width(item.width)
+          .height(item.height)
+          .position({ x: item.x, y: item.y })
+          .backgroundColor(this.fillColorOf(item.id))
+          .borderRadius(this.theme.cornerRadius)
+          .border({
+            width: item.id === this.selectedId ? 2 : 1,
+            color: item.id === this.selectedId ? this.theme.selectedBorderColor : '#CBD5E1'
+          })
+          .onClick(() => {
+            this.onNodeSelect(item.id);
+          })
+        }, (item: LayoutNode): string =>
+          item.id + '_' + this.refreshTick.toString() + '_' + (item.id === this.selectedId ? '1' : '0'))
+      }
+      .width(this.contentWidth > 0 ? this.contentWidth : '100%')
+      .height(this.contentHeight > 0 ? this.contentHeight : '100%')
+      .alignContent(Alignment.TopStart)
+      .scale({ x: this.scaleValue, y: this.scaleValue, centerX: 0, centerY: 0 })
+      .translate({ x: this.translateX, y: this.translateY })
     }
     .width('100%')
     .height('100%')
     .backgroundColor(this.theme.backgroundColor)
     .clip(true)
-    .scale({ x: this.scaleValue, y: this.scaleValue, centerX: 0, centerY: 0 })
-    .translate({ x: this.translateX, y: this.translateY })
     .onAreaChange((oldValue: Area, newValue: Area) => {
       this.viewportWidth = newValue.width as number;
       this.viewportHeight = newValue.height as number;
