@@ -6,6 +6,7 @@ import viewportControllerTest from './ViewportController.test';
 import jsonSerializerTest from './JsonSerializer.test';
 import editControllerTest from './EditController.test';
 import themeManagerTest from './ThemeManager.test';
+import fitViewTest from './FitView.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -16,4 +17,5 @@ export default function testsuite() {
   jsonSerializerTest();
   editControllerTest();
   themeManagerTest();
+  fitViewTest();
 }

@@ -51,6 +51,9 @@ export struct MindMapView {
   private lastPanX: number = 0;
   private lastPanY: number = 0;
   private gestureStartScale: number = 1;
+  // 首次整树适配只执行一次；用户一旦手动缩放/平移，后续布局与尺寸变化都不再抢视口
+  private hasInitialFit: boolean = false;
+  private hasUserInteracted: boolean = false;
 
   aboutToAppear(): void {
     this.relayout();
@@ -70,6 +73,7 @@ export struct MindMapView {
     this.contentWidth = result.contentWidth;
     this.contentHeight = result.contentHeight;
     this.viewport.setContentSize(result.contentWidth, result.contentHeight);
+    this.tryInitialFit();
     this.syncViewport();
     // Canvas 若已就绪立即重绘；未就绪则等 onReady
     if (this.canvasReady) {
@@ -81,6 +85,24 @@ export struct MindMapView {
     this.scaleValue = this.viewport.scale;
     this.translateX = this.viewport.offsetX;
     this.translateY = this.viewport.offsetY;
+  }
+
+  /**
+   * 首次整树适配：内容尺寸与视口尺寸都就绪、且用户尚未手动操作过时，
+   * 自动 fit 一次让整树完整居中可见；谁后齐谁触发，全程只适配一次。
+   */
+  private tryInitialFit(): void {
+    if (this.hasInitialFit || this.hasUserInteracted) {
+      return;
+    }
+    if (this.contentWidth <= 0 || this.contentHeight <= 0 ||
+      this.viewportWidth <= 0 || this.viewportHeight <= 0) {
+      return;
+    }
+    if (this.viewport.fitView()) {
+      this.hasInitialFit = true;
+      this.syncViewport();
+    }
   }
 
   /** 在 Canvas 上绘制父子连线（坐标与节点卡片同属布局坐标系，整体一起缩放平移） */
@@ -133,6 +155,8 @@ export struct MindMapView {
   }
 
   private onPinchStart(): void {
+    // 用户一旦手动缩放，后续不再自动抢视口
+    this.hasUserInteracted = true;
     // PinchGesture 的 event.scale 相对本次手势起点（起点=1），记录手势开始时的绝对倍率
     this.gestureStartScale = this.viewport.scale;
   }
@@ -144,6 +168,8 @@ export struct MindMapView {
   }
 
   private applyPanStart(): void {
+    // 用户一旦手动平移，后续不再自动抢视口
+    this.hasUserInteracted = true;
     this.lastPanX = 0;
     this.lastPanY = 0;
   }
@@ -158,7 +184,8 @@ export struct MindMapView {
   }
 
   private applyDoubleTap(): void {
-    this.viewport.reset();
+    // 双击 = 回到整树适配视图（而非 1:1 原点）
+    this.viewport.fitView();
     this.syncViewport();
   }
 
@@ -209,6 +236,7 @@ export struct MindMapView {
       this.viewportWidth = newValue.width as number;
       this.viewportHeight = newValue.height as number;
       this.viewport.setViewportSize(this.viewportWidth, this.viewportHeight);
+      this.tryInitialFit();
       this.syncViewport();
     })
     .gesture(

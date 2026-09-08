@@ -1,3 +1,5 @@
+import { computeFitView } from './FitView';
+
 /**
  * ViewportController —— 视口状态机（纯逻辑层，手势识别是 ArkUI 的事，
  * 这里只负责「缩放系数 / 平移量 / 边界钳制」的确定性计算，因此可以离线单测）。
@@ -70,6 +72,25 @@ export class ViewportController {
     this.scale = 1;
     this.offsetX = 0;
     this.offsetY = 0;
+  }
+
+  /**
+   * 整树适配（fit-to-screen）：用已知的内容/视口尺寸计算「整树完整可见并居中」
+   * 的缩放比与平移量并直接写入。尺寸尚未齐（任一为 0）时返回 false、不改动状态。
+   * 注意：适配倍率允许小于手势 minScale（如 0.375 < 0.5），这里有意绕过 clampScale，
+   * 首次捏合时再由手势钳制回到区间，属于预期行为。
+   */
+  fitView(padding: number = 24): boolean {
+    if (this.contentWidth <= 0 || this.contentHeight <= 0 ||
+      this.viewportWidth <= 0 || this.viewportHeight <= 0) {
+      return false;
+    }
+    const r = computeFitView(this.contentWidth, this.contentHeight,
+      this.viewportWidth, this.viewportHeight, padding, 1.0, 0.1);
+    this.scale = r.scale;
+    this.offsetX = r.offsetX;
+    this.offsetY = r.offsetY;
+    return true;
   }
 
   /** 当前是否处于放大状态（供 UI 决定是否显示「复位」按钮） */

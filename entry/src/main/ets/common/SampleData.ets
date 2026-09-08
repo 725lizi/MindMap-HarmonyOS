@@ -10,7 +10,7 @@ export class SampleData {
   static basicTree(): MindTree {
     const tree: MindTree = new MindTree('紧凑布局示例', 'root');
     tree.addChildTo('root', new MindNode('A', '复杂子树 A'));
-    tree.addChildTo('root', new MindNode('B', '叶子 B（收在 A 下方）'));
+    tree.addChildTo('root', new MindNode('B', '叶子 B'));
     tree.addChildTo('A', new MindNode('a1', 'a1 深层分支'));
     tree.addChildTo('A', new MindNode('a2', 'a2 子节点'));
     tree.addChildTo('a1', new MindNode('a11', 'a11 更深层'));
