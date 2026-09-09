@@ -1,8 +1,8 @@
 # MindMap-HarmonyOS
 
-[![Repository-Check](https://github.com/yourname/MindMap-HarmonyOS/actions/workflows/ci.yml/badge.svg)](https://github.com/yourname/MindMap-HarmonyOS/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![ohpm](https://img.shields.io/badge/ohpm-%40yourname%2Fmindmap-success.svg)](https://ohpm.openharmony.cn/)
+[![Repository-Check](https://github.com/mindmap-harmony/MindMap-HarmonyOS/actions/workflows/ci.yml/badge.svg)](https://github.com/mindmap-harmony/MindMap-HarmonyOS/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![ohpm](https://img.shields.io/badge/ohpm-mindmap-harmony-success.svg)](https://ohpm.openharmony.cn/)
 
 > 一行代码嵌入鸿蒙应用的**原生思维导图组件**：传入标准树节点 JSON，自动完成树形布局、渲染、缩放平移与节点编辑，并支持 JSON 序列化与图片导出。
 
@@ -13,7 +13,7 @@
 - **流畅手势**：双指缩放、单指平移、双击回到整树适配视图，大图浏览顺滑；初始进入自动整树适配居中（fit-to-screen），视口状态机为纯逻辑、可单测。
 - **键盘流编辑（示例演示）**：EditDemo 支持回车加同级、Tab 加子级、输入框为空时 Delete 删除，连续录入不丢焦点；MindMapView 提供可选 `selectedId` 入参，选中节点以主题色（默认琥珀色）描边，不传则零影响。
 - **图片导出**：组件截图走 `UIContext.ComponentSnapshot` 新 API（无弃用调用），`ImageExporter.saveToGallery` 经 photoAccessHelper 一键保存 PNG 到系统相册，含运行时权限申请与成功/失败/拒绝授权三态处理；HAR 本身不声明任何权限。
-- **一行接入**：`ohpm install @yourname/mindmap`，三行代码渲染一张思维导图。
+- **一行接入**：`ohpm install mindmap-harmony`，三行代码渲染一张思维导图。
 - **可定制**：主题配色、连线样式（曲线/折线）、节点样式、字号全部可配置。
 - **工程质量**：74 个本地单元测试覆盖数据模型、布局算法（含独立手算黄金坐标与随机树不变量审计）、视口状态机、整树适配纯函数、序列化、编辑控制与主题（随里程碑持续增加）。
 
@@ -22,13 +22,13 @@
 ### 1. 安装
 
 ```bash
-ohpm install @yourname/mindmap
+ohpm install mindmap-harmony
 ```
 
 ### 2. 三行代码渲染思维导图
 
 ```typescript
-import { MindTree, MindNode, MindMapView } from '@yourname/mindmap';
+import { MindTree, MindNode, MindMapView } from 'mindmap-harmony';
 
 // 1. 准备标准树节点数据（也可由后端 / 大模型生成同构 JSON 后反序列化得到）
 const tree: MindTree = new MindTree('中心主题');
@@ -83,7 +83,7 @@ MindMap-HarmonyOS/
 ## 分层架构与设计原则
 
 - **UI 与纯逻辑分离**：model / layout / gesture / edit / export(序列化) / theme 全部是不依赖 UI 的纯逻辑类，可离线单测；render 只负责把结果画出来。
-- **组件库不内置 AI 依赖**：安装 `@yourname/mindmap` 不需要任何 API Key。AI 生成脑图的逻辑放在上层 App（如 FocusTimer 组装 Prompt、调用 DeepSeek、校验 JSON），组件只接收标准树节点数据。
+- **组件库不内置 AI 依赖**：安装 `mindmap-harmony` 不需要任何 API Key。AI 生成脑图的逻辑放在上层 App（如 FocusTimer 组装 Prompt、调用 DeepSeek、校验 JSON），组件只接收标准树节点数据。
 - **单一数据源**：编辑只走 `EditController` 一个入口，渲染层只读不改树。
 
 详见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) 与 [docs/API.md](docs/API.md)。
@@ -105,9 +105,9 @@ HarmonyOS API 24 SDK / hvigor 需登录华为开发者中心下载，**GitHub Ac
 ## 发布到 ohpm
 
 1. 在 [ohpm 中心仓](https://ohpm.openharmony.cn/) 注册账号并完成实名认证；
-2. 把 `library/oh-package.json5` 中的 `@yourname/mindmap` 改为真实包名，补全 author / version / keywords；
+2. 确认 `library/oh-package.json5` 的包名 `mindmap-harmony` 在中心仓未被占用，补全 version / keywords；
 3. 在 `library/` 目录执行 `ohpm publish`，通过自动化扫描与人工审核；
-4. 验证 `ohpm install @你的包名/mindmap` 可正常安装。
+4. 验证 `ohpm install mindmap-harmony` 可正常安装。
 
 ## 落地案例
 
@@ -119,7 +119,7 @@ HarmonyOS API 24 SDK / hvigor 需登录华为开发者中心下载，**GitHub Ac
 
 ## 发布前待办（脚手架占位项）
 
-- [ ] 全局替换 `yourname`：`library/oh-package.json5`、`entry/oh-package.json5`、entry 内 import、AppScope `bundleName`、本文件徽章链接
+- [x] 占位符已全部替换：ohpm 包名 `mindmap-harmony`、Demo 包名 `com.mindmap.harmony.demo`、仓库与徽章链接同步更新
 - [ ] 补 Demo 运行截图到 `screenshots/` 并替换上方占位
 - [x] M2 算法侧：后序轮廓紧凑 tidier 布局已落地（黄金坐标 + 1000 随机树零违例）
 - [ ] M2 渲染侧：MindMapView 设备目视回归与 Demo 截图
@@ -127,4 +127,4 @@ HarmonyOS API 24 SDK / hvigor 需登录华为开发者中心下载，**GitHub Ac
 
 ## License
 
-[Apache-2.0](LICENSE)
+[MIT](LICENSE) © MindMap-HarmonyOS Contributors

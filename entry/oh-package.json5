@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "MindMap-HarmonyOS 演示应用：展示组件库的基础渲染、手势、编辑与序列化/导出能力。",
   "main": "",
-  "author": "",
-  "license": "Apache-2.0",
+  "author": "mindmap-harmony",
+  "license": "MIT",
   "dependencies": {
-    // 本地依赖 HAR 组件库，先跑通「一行接入」；发布后改为 "@yourname/mindmap": "^1.0.0"
-    "@yourname/mindmap": "file:../library"
+    // 本地依赖 HAR 组件库，先跑通「一行接入」；发布后改为 "mindmap-harmony": "^1.0.0"
+    "mindmap-harmony": "file:../library"
   }
 }

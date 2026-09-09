@@ -6,7 +6,7 @@
 import {
   MindNode, MindTree, LayoutEngine, ViewportController,
   EditController, JsonSerializer, ThemeManager, MindMapView
-} from '@yourname/mindmap';
+} from 'mindmap-harmony';
 ```
 
 ## 1. 数据模型

@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { MindTree, MindMapView } from '@yourname/mindmap';
+import { MindTree, MindMapView } from 'mindmap-harmony';
 import { SampleData } from '../common/SampleData';
 
 /** 示例二：手势交互——缩放/平移/双击复位，状态计算在纯逻辑 ViewportController */

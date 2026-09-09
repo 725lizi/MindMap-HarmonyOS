@@ -1,10 +1,10 @@
 {
-  "name": "@yourname/mindmap",
+  "name": "mindmap-harmony",
   "version": "1.0.0",
   "description": "HarmonyOS NEXT 原生 ArkTS 思维导图组件：传入标准树节点 JSON，自动完成树形布局、渲染、缩放平移与节点编辑，支持 JSON 序列化与图片导出。零 WebView 依赖。",
   "main": "Index.ets",
-  "author": "",
-  "license": "Apache-2.0",
+  "author": "mindmap-harmony",
+  "license": "MIT",
   "keywords": [
     "harmonyos",
     "harmonyos-next",

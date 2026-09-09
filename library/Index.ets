@@ -1,11 +1,11 @@
 /**
- * @yourname/mindmap —— HarmonyOS NEXT 原生思维导图组件库（HAR）统一导出入口。
+ * mindmap-harmony —— HarmonyOS NEXT 原生思维导图组件库（HAR）统一导出入口。
  *
  * 组件库不内置任何 AI / 网络依赖，只接收标准树节点数据，
  * 负责布局、渲染、手势、编辑、序列化与导出。
  *
  * 公共 API 分层导出，使用方只从本入口 import：
- *   import { MindMapView, MindTree, MindNode, JsonSerializer, EditController } from '@yourname/mindmap';
+ *   import { MindMapView, MindTree, MindNode, JsonSerializer, EditController } from 'mindmap-harmony';
  */
 
 // 数据模型层

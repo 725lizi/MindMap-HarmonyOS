@@ -68,7 +68,7 @@ struct Index {
         .fontColor('#111827')
         .width('100%')
         .margin({ bottom: 4 })
-      Text('@yourname/mindmap · 鸿蒙原生思维导图组件')
+      Text('mindmap-harmony · 鸿蒙原生思维导图组件')
         .fontSize(13)
         .fontColor('#6B7280')
         .width('100%')

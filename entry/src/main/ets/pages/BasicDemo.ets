@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { MindTree, MindMapView } from '@yourname/mindmap';
+import { MindTree, MindMapView } from 'mindmap-harmony';
 import { SampleData } from '../common/SampleData';
 
 /** 示例一：基础渲染——一行接入，数据驱动布局 */

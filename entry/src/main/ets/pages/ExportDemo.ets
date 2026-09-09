@@ -7,7 +7,7 @@ import {
   MindMapSerializeError,
   ImageExporter,
   ImageExportCode
-} from '@yourname/mindmap';
+} from 'mindmap-harmony';
 import { SampleData } from '../common/SampleData';
 
 const WRITE_PERMISSION: Permissions = 'ohos.permission.WRITE_IMAGEVIDEO';

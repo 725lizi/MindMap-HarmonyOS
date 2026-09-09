@@ -1,4 +1,4 @@
-import { MindTree, MindNode } from '@yourname/mindmap';
+import { MindTree, MindNode } from 'mindmap-harmony';
 
 /** Demo 示例数据：集中构造，四个示例页共用 */
 export class SampleData {

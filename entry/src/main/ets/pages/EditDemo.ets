@@ -1,7 +1,7 @@
 import { router } from '@kit.ArkUI';
 import { KeyCode } from '@kit.InputKit';
 // focusControl 为 ArkUI 全局命名空间（component/common.d.ts 声明），无需 import
-import { MindTree, MindMapView, EditController, MindNode } from '@yourname/mindmap';
+import { MindTree, MindMapView, EditController, MindNode } from 'mindmap-harmony';
 import { SampleData } from '../common/SampleData';
 
 /** 示例三：节点编辑——所有修改走 EditController 唯一入口，改完自增 tick 触发重排 */

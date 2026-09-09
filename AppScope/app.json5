@@ -1,8 +1,7 @@
 {
   "app": {
-    // TODO(发布前): 改成你自己的全局唯一包名，例如 com.yourname.mindmapdemo
-    "bundleName": "com.yourname.mindmapdemo",
-    "vendor": "yourname",
+    "bundleName": "com.mindmap.harmony.demo",
+    "vendor": "mindmap-harmony",
     "versionCode": 1000000,
     "versionName": "1.0.0",
     "buildVersion": "1",
