@@ -113,19 +113,39 @@ struct ExportDemo {
       .width('100%')
       .padding({ top: 12, bottom: 12 })
 
-      Row({ space: 8 }) {
-        Button('导出 JSON').fontSize(13).onClick(() => {
-          this.doExport();
-        })
-        Button('导入 JSON').fontSize(13).onClick(() => {
-          this.doImport();
-        })
-        Button('组件截图').fontSize(13).onClick(() => {
-          this.doCapture();
-        })
-        Button('保存到相册').fontSize(13).onClick(() => {
-          this.doSaveToGallery();
-        })
+      // 2×2 两行布局：小屏竖屏下四个按钮等宽铺满，文字完整不被截断
+      Column({ space: 8 }) {
+        Row({ space: 8 }) {
+          Button('导出 JSON')
+            .fontSize(13)
+            .layoutWeight(1)
+            .onClick(() => {
+              this.doExport();
+            })
+          Button('导入 JSON')
+            .fontSize(13)
+            .layoutWeight(1)
+            .onClick(() => {
+              this.doImport();
+            })
+        }
+        .width('100%')
+
+        Row({ space: 8 }) {
+          Button('组件截图')
+            .fontSize(13)
+            .layoutWeight(1)
+            .onClick(() => {
+              this.doCapture();
+            })
+          Button('保存到相册')
+            .fontSize(13)
+            .layoutWeight(1)
+            .onClick(() => {
+              this.doSaveToGallery();
+            })
+        }
+        .width('100%')
       }
       .width('100%')
       .margin({ bottom: 8 })
