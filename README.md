@@ -6,6 +6,14 @@
 
 > 一行代码嵌入鸿蒙应用的**原生思维导图组件**：传入标准树节点 JSON，自动完成树形布局、渲染、缩放平移与节点编辑，并支持 JSON 序列化与图片导出。
 
+## 效果展示（Demo 真机截图）
+
+| 基础渲染：紧凑布局 + 整树适配居中 | 手势交互：双击放大、单指平移、双指捏合 |
+| :---: | :---: |
+| <img src="docs/screenshots/basic.png" width="220" /> | <img src="docs/screenshots/gesture.png" width="220" /> |
+| 键盘快录（回车加同级/Tab 加子级）+ 琥珀色选中描边 | 序列化往返 + 组件截图 + 保存 PNG 到系统相册 |
+| <img src="docs/screenshots/edit.png" width="220" /> | <img src="docs/screenshots/export.png" width="220" /> |
+
 ## 亮点
 
 - **纯原生、零 WebView**：基于 ArkUI 原生组件绘制，无 WebView 依赖，启动快、包体小、可离线。
@@ -120,7 +128,7 @@ HarmonyOS API 24 SDK / hvigor 需登录华为开发者中心下载，**GitHub Ac
 ## 发布前待办（脚手架占位项）
 
 - [x] 占位符已全部替换：ohpm 包名 `mindmap-harmony`、Demo 包名 `com.mindmap.harmony.demo`、仓库与徽章链接同步更新
-- [ ] 补 Demo 运行截图到 `screenshots/` 并替换上方占位
+- [x] Demo 真机截图已补到 docs/screenshots/ 并接入 README 效果展示区（basic/gesture/edit/export）
 - [x] M2 算法侧：后序轮廓紧凑 tidier 布局已落地（黄金坐标 + 1000 随机树零违例）
 - [ ] M2 渲染侧：MindMapView 设备目视回归与 Demo 截图
 - [x] M4：ImageExporter 保存相册（photoAccessHelper + 权限声明，截图迁移 UIContext.ComponentSnapshot 新 API）
