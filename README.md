@@ -1,6 +1,6 @@
 # MindMap-HarmonyOS
 
-[![Repository-Check](https://github.com/mindmap-harmony/MindMap-HarmonyOS/actions/workflows/ci.yml/badge.svg)](https://github.com/mindmap-harmony/MindMap-HarmonyOS/actions/workflows/ci.yml)
+[![Repository-Check](https://github.com/725lizi/MindMap-HarmonyOS/actions/workflows/ci.yml/badge.svg)](https://github.com/725lizi/MindMap-HarmonyOS/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![ohpm](https://img.shields.io/badge/ohpm-mindmap-harmony-success.svg)](https://ohpm.openharmony.cn/)
 

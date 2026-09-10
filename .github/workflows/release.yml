@@ -43,7 +43,7 @@ jobs:
             ### 1. HAR 组件库发布到 ohpm 中心仓
             1. 确认 `library/oh-package.json5` 的 version 与本 tag 一致
             2. 在 `library/` 目录执行 `ohpm publish`（需已登录并完成实名认证）
-            3. 验证 `ohpm install @yourname/mindmap` 可正常安装
+            3. 验证 `ohpm install mindmap-harmony` 可正常安装
 
             ### 2. Demo HAP（可选附件）
             1. DevEco Studio：**Build > Build Hap(s)/APP(s) > Build Hap(s)**（release）
