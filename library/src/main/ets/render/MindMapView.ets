@@ -196,9 +196,24 @@ export struct MindMapView {
     this.syncViewport();
   }
 
-  private applyDoubleTap(): void {
-    // 双击 = 回到整树适配视图（而非 1:1 原点）
-    this.viewport.fitView();
+  private applyDoubleTap(event: GestureEvent): void {
+    // 双击切换：处于适配/缩小态时以点击点为中心放大到 2x（给单指/鼠标用户一条缩放路径），
+    // 已放大时回到整树适配视图。取触点坐标失败时退化为视口中心。
+    if (this.viewport.scale <= 0.51) {
+      let focalX: number = this.viewportWidth / 2;
+      let focalY: number = this.viewportHeight / 2;
+      if (event.fingerList.length > 0) {
+        const fx: number = event.fingerList[0].localX;
+        const fy: number = event.fingerList[0].localY;
+        if (fx >= 0 && fy >= 0) {
+          focalX = fx;
+          focalY = fy;
+        }
+      }
+      this.viewport.zoomTo(2, focalX, focalY);
+    } else {
+      this.viewport.fitView();
+    }
     this.syncViewport();
   }
 
@@ -279,8 +294,8 @@ export struct MindMapView {
             this.applyPanUpdate(event);
           }),
         TapGesture({ count: 2 })
-          .onAction(() => {
-            this.applyDoubleTap();
+          .onAction((event: GestureEvent) => {
+            this.applyDoubleTap(event);
           })
       )
     )
