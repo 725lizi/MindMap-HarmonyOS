@@ -5,6 +5,9 @@
   "main": "Index.ets",
   "author": "mindmap-harmony",
   "license": "MIT",
+  "homepage": "https://github.com/725lizi/MindMap-HarmonyOS",
+  "repository": "https://github.com/725lizi/MindMap-HarmonyOS.git",
+  "bugs": "https://github.com/725lizi/MindMap-HarmonyOS/issues",
   "keywords": [
     "harmonyos",
     "harmonyos-next",
@@ -16,6 +19,13 @@
     "tree-layout",
     "tree",
     "ohpm"
+  ],
+  "tags": [
+    "harmonyos",
+    "arkts",
+    "mindmap",
+    "tree-layout",
+    "组件库"
   ],
   "dependencies": {}
 }
