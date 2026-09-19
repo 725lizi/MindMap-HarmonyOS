@@ -121,6 +121,12 @@ HarmonyOS API 24 SDK / hvigor 需登录华为开发者中心下载，**GitHub Ac
 
 > 本组件已在个人项目 **FocusTimer**（HarmonyOS 专注计时 + DeepSeek AI 应用）中实际落地：FocusTimer 基于用户计时/笔记数据调用 DeepSeek 生成思维导图结构化 JSON，交由本组件在 App 内直接渲染效率复盘脑图。
 
+| App 内 AI 复盘脑图（DeepSeek 生成） | 离线规则兜底脑图（断网 / 无 Key） |
+| --- | --- |
+| ![FocusTimer AI 复盘脑图](docs/screenshots/focus-timer-ai.png) | ![FocusTimer 规则兜底脑图](docs/screenshots/focus-timer-rule.png) |
+
+App 仓库：[github.com/725lizi/FocusTimer](https://github.com/725lizi/FocusTimer)。
+
 ## 路线图
 
 见 [docs/ROADMAP.md](docs/ROADMAP.md)（M1 工程+模型 → M6 上架运营）。
