@@ -2,7 +2,7 @@
 
 [![Repository-Check](https://github.com/725lizi/MindMap-HarmonyOS/actions/workflows/ci.yml/badge.svg)](https://github.com/725lizi/MindMap-HarmonyOS/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/725lizi/MindMap-HarmonyOS/blob/main/LICENSE)
-[![ohpm](https://img.shields.io/badge/ohpm-mindmap-harmony-success.svg)](https://ohpm.openharmony.cn/)
+[![ohpm](https://img.shields.io/badge/ohpm-v1.0.0-success.svg)](https://ohpm.openharmony.cn/#/cn/detail/mindmap-harmony)
 
 > 一行代码嵌入鸿蒙应用的**原生思维导图组件**：传入标准树节点 JSON，自动完成树形布局、渲染、缩放平移与节点编辑，并支持 JSON 序列化与图片导出。
 

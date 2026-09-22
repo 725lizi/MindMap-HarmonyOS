@@ -2,7 +2,7 @@
 
 [![Repository-Check](https://github.com/725lizi/MindMap-HarmonyOS/actions/workflows/ci.yml/badge.svg)](https://github.com/725lizi/MindMap-HarmonyOS/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![ohpm](https://img.shields.io/badge/ohpm-mindmap-harmony-success.svg)](https://ohpm.openharmony.cn/)
+[![ohpm](https://img.shields.io/badge/ohpm-v1.0.0-success.svg)](https://ohpm.openharmony.cn/#/cn/detail/mindmap-harmony)
 
 > 一行代码嵌入鸿蒙应用的**原生思维导图组件**：传入标准树节点 JSON，自动完成树形布局、渲染、缩放平移与节点编辑，并支持 JSON 序列化与图片导出。
 
@@ -110,12 +110,13 @@ HarmonyOS API 24 SDK / hvigor 需登录华为开发者中心下载，**GitHub Ac
   - 设备测试：`library/src/ohosTest`（渲染挂载、截图核验）；
   - 构建：Build > Build Hap(s)/APP(s)。
 
-## 发布到 ohpm
+## ohpm 中心仓
 
-1. 在 [ohpm 中心仓](https://ohpm.openharmony.cn/) 注册账号并完成实名认证；
-2. 确认 `library/oh-package.json5` 的包名 `mindmap-harmony` 在中心仓未被占用，补全 version / keywords；
-3. 在 `library/` 目录执行 `ohpm publish`，通过自动化扫描与人工审核；
-4. 验证 `ohpm install mindmap-harmony` 可正常安装。
+已发布至 ohpm 中心仓（1.0.0，2026-09 通过审核）：[ohpm.openharmony.cn/#/cn/detail/mindmap-harmony](https://ohpm.openharmony.cn/#/cn/detail/mindmap-harmony)
+
+```bash
+ohpm install mindmap-harmony
+```
 
 ## 落地案例
 
