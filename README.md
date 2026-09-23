@@ -118,6 +118,10 @@ HarmonyOS API 24 SDK / hvigor 需登录华为开发者中心下载，**GitHub Ac
 ohpm install mindmap-harmony
 ```
 
+## 技术文章
+
+- 华为开发者社区：[我用 ArkTS 自研了一个鸿蒙原生思维导图组件，已上架 ohpm，并让 DeepSeek 驱动它渲染复盘脑图](https://developer.huawei.com/consumer/cn/blog/topic/03225493630433160)
+
 ## 落地案例
 
 > 本组件已在个人项目 **FocusTimer**（HarmonyOS 专注计时 + DeepSeek AI 应用）中实际落地：FocusTimer 基于用户计时/笔记数据调用 DeepSeek 生成思维导图结构化 JSON，交由本组件在 App 内直接渲染效率复盘脑图。
