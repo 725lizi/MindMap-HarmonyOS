@@ -121,6 +121,7 @@ ohpm install mindmap-harmony
 ## 技术文章
 
 - 华为开发者社区：[我用 ArkTS 自研了一个鸿蒙原生思维导图组件，已上架 ohpm，并让 DeepSeek 驱动它渲染复盘脑图](https://developer.huawei.com/consumer/cn/blog/topic/03225493630433160)
+- 掘金：[我用 ArkTS 自研了一个鸿蒙原生思维导图组件，已上架 ohpm，并让 DeepSeek 驱动它渲染复盘脑图](https://juejin.cn/post/7688341026176532516)
 
 ## 落地案例
 
